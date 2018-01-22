@@ -1,6 +1,4 @@
 import React from 'react';
-
-import LocaleToggle from 'containers/LocaleToggle';
 import Wrapper from './Wrapper';
 
 function Footer() {
@@ -10,7 +8,6 @@ function Footer() {
         We love to see you
       </section>
       <section>
-        <LocaleToggle />
       </section>
       <section>
         Made by
