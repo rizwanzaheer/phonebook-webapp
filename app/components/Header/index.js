@@ -1,7 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import HeaderLink from './HeaderLink';
-import messages from './messages';
 import NavBar from './NavBar';
 
 class Header extends React.Component {
@@ -11,10 +9,10 @@ class Header extends React.Component {
       <div>
         <NavBar>
           <HeaderLink to="/">
-            <FormattedMessage {...messages.home} />
+            Home
           </HeaderLink>
           <HeaderLink to="/features">
-            <FormattedMessage {...messages.features} />
+            Add Contact
           </HeaderLink>
         </NavBar>
       </div>

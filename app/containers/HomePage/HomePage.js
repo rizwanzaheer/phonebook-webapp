@@ -5,17 +5,9 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 import Styles from './HomePage.scss';
-import reducer from './reducer';
-import saga from './saga';
 
 export class HomePage extends React.PureComponent {
   // eslint-disable-line react/prefer-stateless-function

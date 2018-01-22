@@ -4,34 +4,9 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError,
-} from 'containers/App/selectors';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import AtPrefix from './AtPrefix';
-import CenteredSection from './CenteredSection';
-import Form from './Form';
 import Styles from './HomePage.scss';
-import Input from './Input';
-import messages from './messages';
-import reducer from './reducer';
-import saga from './saga';
-import Section from './Section';
-import { makeSelectUsername } from './selectors';
 
 export class HomePage extends React.PureComponent {
   // eslint-disable-line react/prefer-stateless-function
@@ -93,21 +68,5 @@ export class HomePage extends React.PureComponent {
   }
 }
 
-HomePage.propTypes = {
-};
-
-export function mapDispatchToProps(dispatch) {
-  return {
-  };
-}
-
-const mapStateToProps = createStructuredSelector({
-
-});
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'home', reducer });
-const withSaga = injectSaga({ key: 'home', saga });
-
-export default compose(withReducer, withSaga, withConnect)(HomePage);
+HomePage.propTypes = {};
+export default HomePage;
