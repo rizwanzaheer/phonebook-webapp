@@ -25,10 +25,10 @@ export default function App() {
   return (
     <AppWrapper>
       <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
+        titleTemplate="Phonebook Web App"
+        defaultTitle="Phonebook Web App"
       >
-        <meta name="description" content="A React.js Boilerplate application" />
+        <meta name="description" content="A Phonebook Web application" />
       </Helmet>
       <CustomRoutes />
     </AppWrapper>

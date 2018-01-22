@@ -11,7 +11,7 @@ class Header extends React.Component {
           <HeaderLink to="/">
             Home
           </HeaderLink>
-          <HeaderLink to="/features">
+          <HeaderLink to="/addcontact">
             Add Contact
           </HeaderLink>
         </NavBar>

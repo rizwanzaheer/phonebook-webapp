@@ -19,7 +19,7 @@ export class HomePage extends React.PureComponent {
     console.log('editClickHandler', e.target.id);
   };
   render() {
-    console.log(this.props);
+    console.log(this.props.testuser);
     return (
       <article className={`container-fluid ${Styles.HomePageWrapper}`}>
         <Helmet>
@@ -76,15 +76,3 @@ export class HomePage extends React.PureComponent {
 HomePage.propTypes = {};
 export default HomePage;
 
-// export function mapDispatchToProps(dispatch) {
-//   return {};
-// }
-
-// const mapStateToProps = createStructuredSelector({});
-
-// const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-// const withReducer = injectReducer({ key: 'home', reducer });
-// const withSaga = injectSaga({ key: 'home', saga });
-
-// export default compose(withReducer, withSaga, withConnect)(HomePage);

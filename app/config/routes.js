@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
-import FeaturePage from 'containers/FeaturePage/Loadable';
+import AddContactPage from 'containers/AddContactPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import SigninPage from 'containers/SigninPage/Loadable';
@@ -42,7 +42,7 @@ const CustomRoutes = () => (
     {/* User Routes */}
     <RouteWithUserLayout exact path="/" component={HomePage} />
     {/* dashboard */}
-    <RouteWithUserLayout path="/features" component={FeaturePage} />
+    <RouteWithUserLayout path="/addcontact" component={AddContactPage} />
     <Route path="/signin" component={SigninPage} />
     <Route path="" component={NotFoundPage} />
   </Switch>
