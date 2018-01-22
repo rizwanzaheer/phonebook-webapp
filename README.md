@@ -46,7 +46,7 @@
 <br />
 
 <div align="center">
-  <sub>Created by <a href="https://twitter.com/rizwanzaheerr">Rizwan Zaheer</a> and maintained with ❤️ by an amazing <a href="https://github.com/orgs/react-boilerplate/teams/core">team of developers</a>.</sub>
+  <sub>Created by <a href="https://twitter.com/rizwanzaheerr"></a> and maintained with ❤️ by an amazing <a href="https://github.com/orgs/react-boilerplate/teams/core">team of developers</a>.</sub>
 </div>
 
 ## Features

@@ -20,7 +20,7 @@ const RouteWithGlobalLayout = ({ component, ...rest }) => (
 const RouteWithUserLayout = ({ component, ...rest }) => (
   <div>
     <Header />
-    {!localStorage.getItem('token') && <Redirect push to="signin" />}
+    {/* {!localStorage.getItem('token') && <Redirect push to="signin" />} */}
     <Route {...rest} render={() => React.createElement(component)} />
     <Footer />
   </div>
