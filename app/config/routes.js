@@ -6,11 +6,10 @@ import Header from 'components/Header';
 // import EditContactPage from 'containers/EditContactPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-// import SigninPage from 'containers/SigninPage/Loadable';
 
 const RouteWithGlobalLayout = ({ component, ...rest }) => (
   <div>
-    <Header />{' '}
+    <Header />
     {/* {!localStorage.getItem('backoffice_token') && (
       <Redirect push to="/backoffice/signin" />
     )} */}
@@ -29,7 +28,7 @@ const RouteWithUserLayout = ({ component, ...rest }) => (
 
 const RouteWithAdminLayout = ({ component, ...rest }) => (
   <div>
-    <Header />{' '}
+    <Header />
     {/* {!localStorage.getItem('backoffice_token') && (
       <Redirect push to="/backoffice/signin" />
     )} */}

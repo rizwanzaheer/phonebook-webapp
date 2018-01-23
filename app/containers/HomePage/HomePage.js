@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import { Table, Icon, Input, Button } from 'antd';
+import { Table, Icon, Input, Button,Pagination } from 'antd';
 import PropTypes from 'prop-types';
 import React from 'react';
 import 'antd/lib/button/style/css';
@@ -42,8 +42,7 @@ export class HomePage extends React.PureComponent {
   }
 
   onSearch = (key, searchText) => {
-    const searchKey = key;
-    console.log('searchText: ', searchText);
+    const Key = key;
 
     if (searchText) {
       this.setState(
@@ -51,12 +50,10 @@ export class HomePage extends React.PureComponent {
           contacts: this.props.contacts,
         },
         () => {
-          const newContacts = this.state.contacts.filter((word) => {
-            console.log('searchKey is: ', typeof searchKey);
-            return word[searchKey] === searchText;
-          });
+          const newContacts = this.state.contacts.filter(
+            (word) => word[Key] === searchText
+          );
           this.setState({ contacts: newContacts });
-          console.log('newContacts', newContacts);
         }
       );
     } else {
@@ -64,7 +61,6 @@ export class HomePage extends React.PureComponent {
         contacts: this.props.contacts,
       });
     }
-    // this.state.contacts.filter( );
   };
 
   renderSearchDropdown(key, value) {
@@ -161,11 +157,6 @@ export class HomePage extends React.PureComponent {
           <div>
             <Icon
               onClick={() => {
-                console.log(record._id);
-                console.log(
-                  'this.props.deleteRecord(record._id): ',
-                  this.props.editRecord(record._id)
-                );
                 this.props.editRecord(record._id);
               }}
               className={css.tableActionIcon}
@@ -173,7 +164,6 @@ export class HomePage extends React.PureComponent {
             />
             <Icon
               onClick={() => {
-                console.log(record._id);
                 this.props.deleteRecord(record._id);
               }}
               className={css.tableActionIcon}
@@ -189,9 +179,8 @@ export class HomePage extends React.PureComponent {
 
   render() {
     const { contacts } = this.state;
-
-    console.log('this.props: ', this.props.contacts);
     const column = this.renderColumn();
+    
     return (
       <article className={`container-fluid ${css.HomePageWrapper}`}>
         <div className="row">
@@ -199,7 +188,9 @@ export class HomePage extends React.PureComponent {
             <div className="row">
               <div className="col-12">
                 <Table dataSource={contacts} columns={column} />
+                <Pagination defaultCurrent={1} total={50} />
               </div>
+              
             </div>
           </div>
         </div>
