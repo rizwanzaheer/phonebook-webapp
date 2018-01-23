@@ -15,9 +15,14 @@
  *    }
  */
 
+import axios from 'axios';
 import {
   CHANGE_USERNAME,
+  DELETERECORD,
+  EDITRECORD,
+  GET_CONTACTS,
 } from './constants';
+const ROOT_URL = 'http://localhost:3001/api/search';
 
 /**
  * Changes the input field of the form
@@ -27,8 +32,52 @@ import {
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
 export function changeUsername(name) {
-  return {
-    type: CHANGE_USERNAME,
-    name,
+  return { type: CHANGE_USERNAME, name };
+}
+ 
+function getContactsSuccess(data) {
+  console.log('get contacts success! ', data);
+  return { type: GET_CONTACTS, payload: data.users };
+}
+
+export function getContacts() {
+  console.log('get contacts action! ');
+  return (dispatch) => {
+    try {
+      axios
+        .post(`${ROOT_URL}/searchrecords`, {})
+        .then((data) => {
+          dispatch(getContactsSuccess(data.data));
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function editRecord(id) {
+  console.log('edit record id is: ', id);
+  return { type: EDITRECORD, payload: 'Rizwan Zaheer in editRecord' };
+}
+
+function deleteSuccess(data) {
+  console.log('deleteSuccess:', data);
+  return { type: DELETERECORD, payload: data.data.users };
+}
+
+export function deleteRecord(id) {
+  console.log('delete record id: ', id);
+  return (dispatch) => {
+    try {
+      axios
+        .post(`${ROOT_URL}/deleteRecord`, { id })
+        .then((data) => {
+          dispatch(deleteSuccess(data));
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
   };
 }

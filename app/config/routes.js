@@ -3,13 +3,14 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
 import AddContactPage from 'containers/AddContactPage/Loadable';
+import EditContactPage from 'containers/EditContactPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import SigninPage from 'containers/SigninPage/Loadable';
 
 const RouteWithGlobalLayout = ({ component, ...rest }) => (
   <div>
-    <Header />
+    <Header />{' '}
     {/* {!localStorage.getItem('backoffice_token') && (
       <Redirect push to="/backoffice/signin" />
     )} */}
@@ -19,7 +20,7 @@ const RouteWithGlobalLayout = ({ component, ...rest }) => (
 );
 const RouteWithUserLayout = ({ component, ...rest }) => (
   <div>
-    <Header />
+    <Header />{' '}
     {/* {!localStorage.getItem('token') && <Redirect push to="signin" />} */}
     <Route {...rest} render={() => React.createElement(component)} />
     <Footer />
@@ -28,7 +29,7 @@ const RouteWithUserLayout = ({ component, ...rest }) => (
 
 const RouteWithAdminLayout = ({ component, ...rest }) => (
   <div>
-    <Header />
+    <Header />{' '}
     {/* {!localStorage.getItem('backoffice_token') && (
       <Redirect push to="/backoffice/signin" />
     )} */}
@@ -40,9 +41,13 @@ const RouteWithAdminLayout = ({ component, ...rest }) => (
 const CustomRoutes = () => (
   <Switch>
     {/* User Routes */}
-    <RouteWithUserLayout exact path="/" component={HomePage} />
+    <RouteWithUserLayout exact path="/" component={HomePage} />{' '}
     {/* dashboard */}
     <RouteWithUserLayout path="/addcontact" component={AddContactPage} />
+    <RouteWithUserLayout
+      path="/editcontact/:id"
+      component={EditContactPage}
+    />
     <Route path="/signin" component={SigninPage} />
     <Route path="" component={NotFoundPage} />
   </Switch>

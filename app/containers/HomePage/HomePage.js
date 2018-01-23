@@ -4,9 +4,10 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-
+import Table from 'components/Table';
 import Styles from './HomePage.scss';
 
 export class HomePage extends React.PureComponent {
@@ -14,12 +15,34 @@ export class HomePage extends React.PureComponent {
   /**
    * when initial state username is not null, submit the form to load repos
    */
+  constructor(props) {
+    super(props);
+    this.tableHeadings = [
+      'F Name',
+      'L Name',
+      'Date Of Birth',
+      'Phone #',
+      'Actions',
+    ];
+  }
 
+  componentWillMount() {
+    console.log('component will mount!!');
+  }
+  componentDidMount() {
+    console.log('component did mount!!');
+    this.props.getContacts();
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps is: ', nextProps);
+  }
   editClickHandler = (e) => {
     console.log('editClickHandler', e.target.id);
   };
   render() {
-    console.log(this.props.testuser);
+    console.log('homepage props', this.props);
+    console.log('contacts', this.props.contacts);
+    const { contacts, editRecord, deleteRecord } = this.props;
     return (
       <article className={`container-fluid ${Styles.HomePageWrapper}`}>
         <Helmet>
@@ -31,39 +54,30 @@ export class HomePage extends React.PureComponent {
             <div className="row">
               <div className="col-12">
                 <h3>Phonebook App</h3>
-                <table className="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">First</th>
-                      <th scope="col">Last</th>
-                      <th scope="col">Date of Birth</th>
-                      <th scope="col">Phone #</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Rizwan</td>
-                      <td>Zaheer</td>
-                      <td>30/09/1993</td>
-                      <td>03135561765</td>
-                      <td>
-                        <i
-                          className={`fa fa-pencil-square-o ${Styles.customStyle}`}
-                          onClick={this.editClickHandler}
-                          aria-hidden="true"
-                          id="121"
-                        />
-                        <i
-                          className={`fa fa-trash-o ${Styles.customStyle}`}
-                          aria-hidden="true"
-                          onClick={this.editClickHandler}
-                          id="1212"
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <br />
+                <form className="form-inline pull-right">
+                  <input
+                    className="form-control mr-sm-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <button
+                    className="btn btn-outline-success my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </form>
+                <br />
+                <br />
+                <Table
+                  tableHeadings={this.tableHeadings}
+                  // this data getting from props
+                  tableData={contacts}
+                  editRecord={editRecord}
+                  deleteRecord={deleteRecord}
+                />
               </div>
             </div>
           </div>
@@ -73,6 +87,10 @@ export class HomePage extends React.PureComponent {
   }
 }
 
-HomePage.propTypes = {};
+HomePage.propTypes = {
+  editRecord: PropTypes.func,
+  deleteRecord: PropTypes.func,
+  getContacts: PropTypes.func,
+  contacts: PropTypes.array,
+};
 export default HomePage;
-

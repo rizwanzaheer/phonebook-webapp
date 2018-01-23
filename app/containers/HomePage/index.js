@@ -5,15 +5,21 @@
  */
 
 import { connect } from 'react-redux';
-import { changeUsername } from './actions';
+import { changeUsername, deleteRecord, editRecord, getContacts } from './actions';
 import HomePage from './HomePage';
 
-const mapActionToProps = {};
+const mapActionToProps = {
+  deleteRecord,
+  editRecord,
+  getContacts,
+};
 
 function mapStateToProps(state) {
-  console.log('state is: ', state);
   return {
     testuser: state.home.username,
+    contacts: state.home.contacts,
   };
 }
-export default connect(mapStateToProps, mapActionToProps)(HomePage);
+export default connect(mapStateToProps, mapActionToProps)(
+  HomePage
+);

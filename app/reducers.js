@@ -5,7 +5,8 @@
 import { combineReducers } from 'redux';
 
 import globalReducer from 'containers/App/reducer';
-import HomePageReducer from 'containers/HomePage/reducer';
+import homeReducer from 'containers/HomePage/reducer';
+import EditContactReducer from 'containers/EditContactPage/reducer';
 
 
 /**
@@ -15,7 +16,8 @@ export default function createReducer(injectedReducers) {
   return combineReducers({
     // route: routeReducer,
     global: globalReducer,
-    home: HomePageReducer,
+    home: homeReducer,
+    editcontact: EditContactReducer,
     ...injectedReducers,
   });
 }
