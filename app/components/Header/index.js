@@ -3,18 +3,10 @@ import HeaderLink from './HeaderLink';
 import NavBar from './NavBar';
 
 class Header extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
-        <NavBar>
-          <HeaderLink to="/">
-            Home
-          </HeaderLink>
-          <HeaderLink to="/addcontact">
-            Add Contact
-          </HeaderLink>
-        </NavBar>
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <h3>Phonebook App</h3>
       </div>
     );
   }

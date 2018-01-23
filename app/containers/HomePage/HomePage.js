@@ -6,95 +6,130 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Button, Table, Icon, Input } from 'antd';
+import { Table, Icon, Input, Button } from 'antd';
 import 'antd/lib/button/style/css';
 import 'antd/lib/table/style/css';
 import 'antd/lib/input/style/css';
+import { RECORDS } from './constants';
+
 import css from './HomePage.scss';
 
-const columns = [{
-  title: 'First Name',
-  dataIndex: 'fname',
-  key: 'fname',
-  filterDropdown: (
-    <div className="custom-filter-dropdown">
-      <Input
-        ref={ele => this.searchInput = ele}
-        placeholder="Search name"
+export class HomePage extends React.PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      searchKeyArray: {
+        fname: false,
+        lname: false,
+        dob: false,
+        phone: false,
+      },
+    };
+  }
+  componentWillMount() {
+    // this.props.getContacts();
+  }
+
+  renderSearchDropdown(key, value) {
+    return (
+      <div className={css.searchDropdown}>
+        <Input
+          placeholder={`Search by ${value}`}
+        // ref={ele => this.searchInput = ele}
         // value={this.state.searchText}
         // onChange={this.onInputChange}
         // onPressEnter={this.onSearch}
-      />
-      <Button type="primary">Search</Button>
-    </div>
-  ),
-  filterIcon: <Icon type="search" />,
-  filterDropdownVisible: false,
-}, {
-  title: 'Last Name',
-  dataIndex: 'lname',
-  key: 'lname',
-}, {
-  title: 'Date of Birth',
-  dataIndex: 'dob',
-  key: 'dob',
-}, {
-  title: 'Phone',
-  dataIndex: 'phone',
-  key: 'phone',
-}, {
-  title: 'Actions',
-  dataIndex: 'actions',
-  render: () => {
-    return (
-      <div>
-        <Icon className={css.tableActionIcon} type="edit" />
-        <Icon className={css.tableActionIcon} type="delete" />
+        />
+        <Button type="primary">Search</Button>
       </div>
     );
   }
-}];
 
-export class HomePage extends React.PureComponent {
-  componentWillMount() {
-    console.log('component will mount!!');
+  renderColumn() {
+    const column = [{
+      title: 'First Name',
+      dataIndex: 'fname',
+      key: 'fname',
+      filterIcon: <Icon type="search" />,
+      filterDropdown: this.renderSearchDropdown('fname', 'First Name'),
+      filterDropdownVisible: this.state.searchKeyArray.fname,
+      onFilterDropdownVisibleChange: (visible) => {
+        this.setState({
+          searchKeyArray: {
+            ...this.state.searchKeyArray,
+            fname: visible,
+          },
+        });
+      },
+    }, {
+      title: 'Last Name',
+      dataIndex: 'lname',
+      key: 'lname',
+      filterIcon: <Icon type="search" />,
+      filterDropdown: this.renderSearchDropdown('lname', 'Last Name'),
+      filterDropdownVisible: this.state.searchKeyArray.lname,
+      onFilterDropdownVisibleChange: (visible) => {
+        this.setState({
+          searchKeyArray: {
+            ...this.state.searchKeyArray,
+            lname: visible,
+          },
+        });
+      },
+    }, {
+      title: 'Date of Birth',
+      dataIndex: 'dob',
+      key: 'dob',
+      filterIcon: <Icon type="search" />,
+      filterDropdown: this.renderSearchDropdown('dob', 'DOB'),
+      filterDropdownVisible: this.state.searchKeyArray.dob,
+      onFilterDropdownVisibleChange: (visible) => {
+        this.setState({
+          searchKeyArray: {
+            ...this.state.searchKeyArray,
+            dob: visible,
+          },
+        });
+      },
+    }, {
+      title: 'Phone',
+      dataIndex: 'phone',
+      key: 'phone',
+      filterIcon: <Icon type="search" />,
+      filterDropdown: this.renderSearchDropdown('phone', 'Phone'),
+      filterDropdownVisible: this.state.searchKeyArray.phone,
+      onFilterDropdownVisibleChange: (visible) => {
+        this.setState({
+          searchKeyArray: {
+            ...this.state.searchKeyArray,
+            phone: visible,
+          },
+        });
+      },
+    }, {
+      title: 'Actions',
+      dataIndex: 'actions',
+      render: (text, record) => (
+        <div>
+          <Icon onClick={() => console.log(record._id)} className={css.tableActionIcon} type="edit" />
+          <Icon onClick={() => console.log(record._id)} className={css.tableActionIcon} type="delete" />
+        </div>
+      ),
+    }];
+    return column;
   }
-  componentDidMount() {
-    console.log('component did mount!!');
-    this.props.getContacts();
-  }
-  componentWillReceiveProps(nextProps) {
-    console.log('nextProps is: ', nextProps);
-  }
-  editClickHandler = (e) => {
-    console.log('editClickHandler', e.target.id);
-  };
+  renderColumn = this.renderColumn.bind(this);
+
   render() {
-    console.log('homepage props', this.props);
-    console.log('contacts', this.props.contacts);
-    const { contacts, editRecord, deleteRecord } = this.props;
+    // const { contacts } = this.props;
+    const column = this.renderColumn();
     return (
       <article className={`container-fluid ${css.HomePageWrapper}`}>
-        <Helmet>
-          <title>Home Page</title>
-          <meta name="description" content="A Phonebook application homepage" />
-        </Helmet>
         <div className="row">
           <div className="col-12">
             <div className="row">
               <div className="col-12">
-                <h3>Phonebook App</h3>
-                <br />
-                <br />
-                <Table dataSource={contacts} columns={columns} />
-                {/* <Table
-                  tableHeadings={this.tableHeadings}
-                  // this data getting from props
-                  tableData={contacts}
-                  editRecord={editRecord}
-                  deleteRecord={deleteRecord}
-                /> */}
+                <Table dataSource={RECORDS} columns={column} />
               </div>
             </div>
           </div>
