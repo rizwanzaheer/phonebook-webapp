@@ -160,12 +160,22 @@ export class HomePage extends React.PureComponent {
         render: (text, record) => (
           <div>
             <Icon
-              onClick={() => console.log(record._id)}
+              onClick={() => {
+                console.log(record._id);
+                console.log(
+                  'this.props.deleteRecord(record._id): ',
+                  this.props.editRecord(record._id)
+                );
+                this.props.editRecord(record._id);
+              }}
               className={css.tableActionIcon}
               type="edit"
             />
             <Icon
-              onClick={() => console.log(record._id)}
+              onClick={() => {
+                console.log(record._id);
+                this.props.deleteRecord(record._id);
+              }}
               className={css.tableActionIcon}
               type="delete"
             />
@@ -180,6 +190,7 @@ export class HomePage extends React.PureComponent {
   render() {
     const { contacts } = this.state;
 
+    console.log('this.props: ', this.props.contacts);
     const column = this.renderColumn();
     return (
       <article className={`container-fluid ${css.HomePageWrapper}`}>

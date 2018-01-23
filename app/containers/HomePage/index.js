@@ -5,7 +5,7 @@
  */
 
 import { connect } from 'react-redux';
-import { changeUsername, deleteRecord, editRecord, getContacts } from './actions';
+import { deleteRecord, editRecord, getContacts } from './actions';
 import HomePage from './HomePage';
 
 const mapActionToProps = {
@@ -16,7 +16,6 @@ const mapActionToProps = {
 
 function mapStateToProps(state) {
   return {
-    testuser: state.home.username,
     contacts: state.home.contacts,
   };
 }

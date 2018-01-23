@@ -34,7 +34,7 @@ import {
 export function changeUsername(name) {
   return { type: CHANGE_USERNAME, name };
 }
- 
+
 function getContactsSuccess(data) {
   return { type: GET_CONTACTS, payload: data.users };
 }
@@ -65,6 +65,7 @@ function deleteSuccess(data) {
 }
 
 export function deleteRecord(id) {
+  console.log('delete id is: ', id);
   return (dispatch) => {
     try {
       axios
