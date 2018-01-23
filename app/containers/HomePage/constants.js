@@ -13,3 +13,4 @@ export const CHANGE_USERNAME = 'CHANGE_USERNAME';
 export const DELETERECORD = 'DELETERECORD';
 export const EDITRECORD = 'EDITRECORD';
 export const GET_CONTACTS = 'GET_CONTACTS';
+export const ROOT_URL = 'http://localhost:3001/api/search';

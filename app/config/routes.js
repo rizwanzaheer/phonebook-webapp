@@ -2,11 +2,11 @@ import React from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
-import AddContactPage from 'containers/AddContactPage/Loadable';
-import EditContactPage from 'containers/EditContactPage/Loadable';
+// import AddContactPage from 'containers/AddContactPage/Loadable';
+// import EditContactPage from 'containers/EditContactPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import SigninPage from 'containers/SigninPage/Loadable';
+// import SigninPage from 'containers/SigninPage/Loadable';
 
 const RouteWithGlobalLayout = ({ component, ...rest }) => (
   <div>
@@ -43,12 +43,12 @@ const CustomRoutes = () => (
     {/* User Routes */}
     <RouteWithUserLayout exact path="/" component={HomePage} />{' '}
     {/* dashboard */}
-    <RouteWithUserLayout path="/addcontact" component={AddContactPage} />
-    <RouteWithUserLayout
+    {/* <RouteWithUserLayout path="/addcontact" component={AddContactPage} /> */}
+    {/* <RouteWithUserLayout
       path="/editcontact/:id"
       component={EditContactPage}
-    />
-    <Route path="/signin" component={SigninPage} />
+    /> */}
+    {/* <Route path="/signin" component={SigninPage} /> */}
     <Route path="" component={NotFoundPage} />
   </Switch>
 );

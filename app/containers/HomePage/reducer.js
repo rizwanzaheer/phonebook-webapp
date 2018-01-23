@@ -24,12 +24,8 @@ function homeReducer(state = initialState, action) {
       // Delete prefixed '@' from the github username
       return state;
     case DELETERECORD:
-      console.log('action.payload data: ', action.payload);
       return {
         ...state,
-        // contacts: [
-        //   { fname: 'Rizwan Zaheer', lname: 'zaheer', dob: '12/12/2011', _id: '2342342342424' },
-        // ],
         contacts: action.payload,
       };
     case GET_CONTACTS:

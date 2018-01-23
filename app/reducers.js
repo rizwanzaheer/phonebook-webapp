@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 
 import globalReducer from 'containers/App/reducer';
 import homeReducer from 'containers/HomePage/reducer';
-import EditContactReducer from 'containers/EditContactPage/reducer';
+// import EditContactReducer from 'containers/EditContactPage/reducer';
 
 
 /**
@@ -17,7 +17,7 @@ export default function createReducer(injectedReducers) {
     // route: routeReducer,
     global: globalReducer,
     home: homeReducer,
-    editcontact: EditContactReducer,
+    // editcontact: EditContactReducer,
     ...injectedReducers,
   });
 }

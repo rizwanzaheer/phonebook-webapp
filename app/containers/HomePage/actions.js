@@ -21,8 +21,8 @@ import {
   DELETERECORD,
   EDITRECORD,
   GET_CONTACTS,
+  ROOT_URL,
 } from './constants';
-const ROOT_URL = 'http://localhost:3001/api/search';
 
 /**
  * Changes the input field of the form
@@ -36,7 +36,6 @@ export function changeUsername(name) {
 }
  
 function getContactsSuccess(data) {
-  console.log('get contacts success! ', data);
   return { type: GET_CONTACTS, payload: data.users };
 }
 
@@ -62,12 +61,10 @@ export function editRecord(id) {
 }
 
 function deleteSuccess(data) {
-  console.log('deleteSuccess:', data);
   return { type: DELETERECORD, payload: data.data.users };
 }
 
 export function deleteRecord(id) {
-  console.log('delete record id: ', id);
   return (dispatch) => {
     try {
       axios

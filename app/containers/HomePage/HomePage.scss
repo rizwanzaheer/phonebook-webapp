@@ -1,4 +1,11 @@
- .HomePageWrapper{
-   min-height: calc(100vh - 200px);
-  
+.HomePageWrapper{
+  min-height: calc(100vh - 200px);
+}
+.tableActionIcon {
+  margin-right: 10px;
+  transition: 0.5s all;
+  &:hover {
+    color: #1890ff;
+    cursor: pointer;
+  }
 }
