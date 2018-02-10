@@ -4,14 +4,108 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import { Table, Icon, Input, Button,Pagination } from 'antd';
+import {
+  Table,
+  Modal,
+  Form,
+  Icon,
+  Input,
+  Button,
+  Radio,
+  DatePicker,
+} from 'antd';
+import axios from 'axios';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import 'antd/lib/button/style/css';
+import 'antd/lib/date-picker/style/css';
+import 'antd/lib/form/style/css';
 import 'antd/lib/input/style/css';
+import 'antd/lib/modal/style/css';
+import 'antd/lib/radio/style/css';
 import 'antd/lib/table/style/css';
 // import { RECORDS } from './constants';
 import css from './HomePage.scss';
+
+const FormItem = Form.Item;
+const MonthPicker = DatePicker.MonthPicker;
+const RangePicker = DatePicker.RangePicker;
+
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 24 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 24 },
+  },
+};
+const config = {
+  format: 'DD/MM/YYYY',
+  rules: [{ type: 'object', required: true, message: 'Please select time!' }],
+};
+
+const regax = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/;
+
+const CollectionCreateForm = Form.create()((props) => {
+  const { visible, onCancel, title, btnText, onCreate, form } = props;
+  const { getFieldDecorator } = form;
+  return (
+    <Modal
+      visible={visible}
+      title={title}
+      okText={btnText}
+      onCancel={onCancel}
+      onOk={onCreate}
+    >
+      <Form layout="vertical">
+        <FormItem label="First Name">
+          {getFieldDecorator('fName', {
+            // initialValue: 'Rizwan Zaheer',
+            rules: [
+              {
+                required: true,
+                message: 'Please Enter the First Name!',
+              },
+            ],
+          })(<Input />)}
+        </FormItem>
+        <FormItem label="Last Name">
+          {getFieldDecorator('lName', {
+            rules: [
+              {
+                required: true,
+                message: 'Please Enter the Last Name!',
+              },
+            ],
+          })(<Input />)}
+        </FormItem>
+        <FormItem {...formItemLayout} label="DatePicker">
+          {getFieldDecorator('datepicker', config)(
+            <DatePicker
+              // defaultValue={moment('2015-06-06', 'YYYY-MM-DD')}
+              format="DD/MM/YYYY"
+            />
+          )}
+        </FormItem>
+        <FormItem label="Phone Number e.g (555-555-5555)">
+          {getFieldDecorator('phone', {
+            // initialValue: '(555)-555-5555',
+            rules: [
+              {
+                required: true,
+                pattern: regax,
+                message: 'Please Enter the Phone Number!',
+              },
+            ],
+          })(<Input />)}
+        </FormItem>
+      </Form>
+    </Modal>
+  );
+});
 
 export class HomePage extends React.PureComponent {
   constructor(props) {
@@ -22,12 +116,17 @@ export class HomePage extends React.PureComponent {
         lname: false,
         dob: false,
         phone: false,
+        CollectionCreateFormVisible: false,
+        Visible: false,
+        editBtnClick: false,
       },
       searchText: '',
       contacts: this.props.contacts,
     };
   }
   componentWillMount() {
+    // dispatching the action to get
+    // record's from db
     this.props.getContacts();
   }
 
@@ -41,6 +140,7 @@ export class HomePage extends React.PureComponent {
     console.log('componentDidUpdate this.state: ', this.state);
   }
 
+  // Search handler
   onSearch = (key, searchText) => {
     const Key = key;
 
@@ -51,7 +151,7 @@ export class HomePage extends React.PureComponent {
         },
         () => {
           const newContacts = this.state.contacts.filter(
-            (word) => word[Key] === searchText
+            (word) => word[Key].toLowerCase() === searchText.toLowerCase()
           );
           this.setState({ contacts: newContacts });
         }
@@ -63,6 +163,65 @@ export class HomePage extends React.PureComponent {
     }
   };
 
+  showModal = () => {
+    this.setState({
+      CollectionCreateFormVisible: true,
+    });
+  };
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+  handleOk = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+      editBtnClick: false,
+    });
+  };
+  handleCancel = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+      editBtnClick: false,
+      CollectionCreateFormVisible: false,
+    });
+  };
+  handleCreate = () => {
+    const form = this.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+      try {
+        axios
+          .post('http://localhost:3001/api/search/createnew', {
+            fname: values.fName,
+            lname: values.lName,
+            dob: values.datepicker._d,
+            phone: values.phone,
+          })
+          .then(() => {
+            // dispatching the action to get
+            // new record's from db
+            this.props.getContacts();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+
+      console.log('Received values of form: ', values.datepicker);
+      form.resetFields();
+      this.setState({ visible: false });
+    });
+  };
+  saveFormRef = (form) => {
+    console.log('saveFormRef is calling!!!!');
+    this.form = form;
+  };
+  // rendring the search dropdown
+  // when click on sarch icon
   renderSearchDropdown(key, value) {
     return (
       <div className={css.searchDropdown}>
@@ -158,6 +317,10 @@ export class HomePage extends React.PureComponent {
             <Icon
               onClick={() => {
                 this.props.editRecord(record._id);
+                this.setState({
+                  editBtnClick: true,
+                });
+                this.showModal();
               }}
               className={css.tableActionIcon}
               type="edit"
@@ -180,17 +343,34 @@ export class HomePage extends React.PureComponent {
   render() {
     const { contacts } = this.state;
     const column = this.renderColumn();
-    
+
     return (
       <article className={`container-fluid ${css.HomePageWrapper}`}>
         <div className="row">
           <div className="col-12">
             <div className="row">
               <div className="col-12">
+                <Button type="primary" onClick={this.showModal}>
+                  <Icon type="plus" />New Contact
+                </Button>
+                <br />
+                <br />
                 <Table dataSource={contacts} columns={column} />
-                <Pagination defaultCurrent={1} total={50} />
+                <CollectionCreateForm
+                  ref={this.saveFormRef}
+                  btnText={this.state.editBtnClick ? 'Update' : 'Add'}
+                  title={
+                    this.state.editBtnClick ? (
+                      'Update Contact'
+                    ) : (
+                      'Add new Contact'
+                    )
+                  }
+                  visible={this.state.visible}
+                  onCancel={this.handleCancel}
+                  onCreate={this.handleCreate}
+                />
               </div>
-              
             </div>
           </div>
         </div>
