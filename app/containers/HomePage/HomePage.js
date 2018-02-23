@@ -25,7 +25,7 @@ import 'antd/lib/input/style/css';
 import 'antd/lib/modal/style/css';
 import 'antd/lib/radio/style/css';
 import 'antd/lib/table/style/css';
-// import { RECORDS } from './constants';
+import { RECORDS } from './constants';
 import css from './HomePage.scss';
 
 const FormItem = Form.Item;
@@ -121,7 +121,8 @@ export class HomePage extends React.PureComponent {
         editBtnClick: false,
       },
       searchText: '',
-      contacts: this.props.contacts,
+      // contacts: this.props.contacts,
+      contacts: RECORDS,
     };
   }
   componentWillMount() {
@@ -341,9 +342,9 @@ export class HomePage extends React.PureComponent {
   renderColumn = this.renderColumn.bind(this);
 
   render() {
-    const { contacts } = this.state;
+    const { contacts, rizwan } = this.state;
     const column = this.renderColumn();
-
+    console.log('rizwan is: ', this.props.rizwan);
     return (
       <article className={`container-fluid ${css.HomePageWrapper}`}>
         <div className="row">

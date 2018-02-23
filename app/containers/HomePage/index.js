@@ -17,6 +17,7 @@ const mapActionToProps = {
 function mapStateToProps(state) {
   return {
     contacts: state.home.contacts,
+    rizwan: 'rizwan testing',
   };
 }
 export default connect(mapStateToProps, mapActionToProps)(
