@@ -222,7 +222,7 @@
     "concurrently": "^3.5.1",
     "cross-env": "5.0.0",
     "email-validator": "^1.1.1",
-    "express": "4.15.3",
+    "express": "4.17.3",
     "fontfaceobserver": "2.0.9",
     "history": "4.6.3",
     "hoist-non-react-statics": "2.1.1",
